@@ -8,8 +8,8 @@ export const Header: React.FC = () => {
                 <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
                         <div className="flex items-center space-x-2">
-                            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                                <span className="text-primary-foreground font-bold text-sm">拼</span>
+                            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                                <span className="text-primary-foreground font-bold text-2xl">拼</span>
                             </div>
                             <div>
                                 <h1 className="text-xl font-bold text-foreground">图像拼接工具</h1>
