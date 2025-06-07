@@ -9,13 +9,7 @@ jobs:
         runs-on: ubuntu-latest
 
         permissions:
-            contents: read
-            pages: write
-            id-token: write
-
-        environment:
-            name: github-pages
-            url: ${{ steps.deployment.outputs.page_url }}
+            contents: write # 需要写权限来推送到分支
 
         steps:
             - name: Checkout code
@@ -55,14 +49,17 @@ jobs:
             - name: Build project
               run: pnpm run build
 
-            - name: Setup Pages
-              uses: actions/configure-pages@v5
-
-            - name: Upload to GitHub Pages
-              uses: actions/upload-pages-artifact@v3
+            - name: Release to PROD Branch
+              uses: casperdcl/push-dir@v1
               with:
-                  path: dist/
+                  message: "🚀 Deploy build ${{ github.sha }}"
+                  branch: PROD
+                  dir: dist
+                  history: false
+                  force: true
 
-            - name: Deploy to GitHub Pages
-              id: deployment
-              uses: actions/deploy-pages@v4
+            - name: Deployment Success
+              run: |
+                  echo "✅ Successfully deployed to PROD branch!"
+                  echo "📦 Build SHA: ${{ github.sha }}"
+                  echo "🌐 PROD branch: https://github.com/${{ github.repository }}/tree/PROD"
